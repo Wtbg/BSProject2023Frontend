@@ -25,10 +25,23 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>React App</title>
+    <script type="text/javascript">
+      window._AMapSecurityConfig = {
+        securityJsCode: '40203c27589b344c8208ab71f5a2b250',
+
+      }
+    </script>
+    <script type="text/javascript" src="https://webapi.amap.com/maps?v=2.0&key=a79bfabee6c7a325a6554607d1ffb782"></script>
   </head>
   <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
+  <div id="container"></div>
+  <script type="text/javascript">
+    //地图初始化应该在地图容器div已经添加到DOM树之后
+    var map = new AMap.Map("container", {
+      zoom: 12,
+    });
+  </script>
+  <div id="root"></div>
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.

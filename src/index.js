@@ -1,29 +1,31 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
-import {Login} from "./component/Login2";
-import reportWebVitals from './reportWebVitals';
-import {
-    createBrowserRouter,
-    RouterProvider,
-} from 'react-router-dom';
+import {UserService} from "./component/user/UserService";
+import {MyLayout} from "./component/Layout";
+import {BrowserRouter, Route, Routes,} from 'react-router-dom';
+import {render} from "react-dom";
+import {Provider} from "react-redux";
+import store from "./utils/store";
+import {DevSupport} from "@react-buddy/ide-toolbox";
+import {ComponentPreviews, useInitial} from "./dev";
 
 
-const router = createBrowserRouter([
-    {path: '/', element: <App/>},
-    {path: '/detail', element: <AppDetail/>},
-    {path: '/login', element: <Login/>},
-]);
-
-function AppDetail() {
-    return (<div className="App">
-        Detail
-    </div>);
-}
-
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(<RouterProvider router={router}/>)
+const root = (document.getElementById('root'));
+render(
+    <Provider store={store}>
+        <BrowserRouter>
+            <Routes>
+                <Route path="/" element={<MyLayout/>}/>
+                <Route path="/login" element={<DevSupport ComponentPreviews={ComponentPreviews}
+                                                          useInitialHook={useInitial}
+                >
+                    <UserService/>
+                </DevSupport>}/>
+            </Routes>
+        </BrowserRouter>
+    </Provider>
+    , root
+);
 
 
 // reportWebVitals();

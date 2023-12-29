@@ -15,14 +15,18 @@ export function useAuth() {
     const login = async (submitData) => {
         try {
             // Make login request
-            const data = await fetch('http://localhost:1323/api/user/login', {
+            let fetch_url = "http://" + window.location.hostname + ":1323/api/user/login";
+            const data = await fetch(fetch_url, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(submitData),
             }).then((res) => res.json());
-            console.log('登录成功:', data);
+            if (data.code !== 0) {
+                logout();
+                throw new Error(data.msg);
+            }
             // Save user data to localStorage
             localStorage.setItem('user', JSON.stringify(data));
             // Set user state
